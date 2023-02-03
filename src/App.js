@@ -9,7 +9,7 @@ import { TodoItem } from "./TodoItem";
 const todos = [
   {
     text: 'Do the laundry',
-    completed: false,
+    completed: true,
   },
   {
     text: 'Do the React Course at Platzi',
@@ -33,7 +33,11 @@ function App() {
       <TodoList>
       {/* ToDos registered in the app */}
         {todos.map(todo =>(
-          <TodoItem key={todo.text} text={todo.text} />
+          <TodoItem 
+            key={todo.text}
+            text={todo.text}
+            completed={todo.completed}
+          />
         ))}
       </TodoList>
   

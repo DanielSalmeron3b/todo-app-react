@@ -1,13 +1,9 @@
 import React from 'react';
-
-const someStyles = {
-    color: 'blue',
-    backgroundColor: 'pink',
-};
+import './TodoCounter.css';
 
 function TodoCounter(){
     return (
-    <h2 style={someStyles} >Has completado 2 de 3 ToDos</h2>
+        <h2 className='todo-counter-title' >Has completado 2 de 3 ToDos</h2>
     );
 };
 
