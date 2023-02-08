@@ -26,24 +26,28 @@ const todos = [
 ]
 
 function App() {
+  const [searchValue, setSearchValue] = React.useState('');
+
   return (
     <>
       <TodoCounter />
-      <TodoSearch />
+      <TodoSearch 
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
       <TodoList>
-      {/* ToDos registered in the app */}
-        {todos.map(todo =>(
-          <TodoItem 
+        {/* ToDos registered in the app */}
+        {todos.map(todo => (
+          <TodoItem
             key={todo.text}
             text={todo.text}
             completed={todo.completed}
           />
         ))}
       </TodoList>
-  
       <CreateTodoButton />
     </>
-    );
+  );
 }
 
 export default App;
