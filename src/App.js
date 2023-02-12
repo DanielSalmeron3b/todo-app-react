@@ -6,7 +6,7 @@ import { TodoList } from "./TodoList";
 import { CreateTodoButton } from "./CreateTodoButton";
 import { TodoItem } from "./TodoItem";
 
-const todos = [
+const defaultTodos = [
   {
     text: 'Do the laundry',
     completed: true,
@@ -26,7 +26,10 @@ const todos = [
 ]
 
 function App() {
+  const [todos, setTodos] = React.useState(defaultTodos);
   const [searchValue, setSearchValue] = React.useState('');
+
+  const completedTodos = todos.filter(todos => !!todos.completed);
 
   return (
     <>
