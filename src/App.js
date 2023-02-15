@@ -6,6 +6,7 @@ import { TodoList } from "./TodoList";
 import { CreateTodoButton } from "./CreateTodoButton";
 import { TodoItem } from "./TodoItem";
 
+/* Fake and "hardcoded" TODOs */
 const defaultTodos = [
   {
     text: 'Do the laundry',
@@ -32,6 +33,20 @@ function App() {
   const completedTodos = todos.filter(todos => !!todos.completed).length;
   const totalTodos = todos.length;
 
+  let searchedTodos = [];
+  if (!searchValue.length >= 1) {
+    /* If search bar is empty, show all the TODOs that are registered */
+    searchedTodos = todos;
+  } else {
+    searchedTodos = todos.filter(todo => {
+      const todoText = todo.text.toLowerCase();
+      const searchText = searchValue.toLowerCase();
+      /* Seeing if any of the TODOs in the app have the text prompted by the user
+      so the filter method will return it */
+      return todoText.includes(searchText);
+    });
+  };
+
   return (
     <>
       <TodoCounter
@@ -43,8 +58,8 @@ function App() {
         setSearchValue={setSearchValue}
       />
       <TodoList>
-        {/* ToDos registered in the app */}
-        {todos.map(todo => (
+        {/* ToDos that are shown as a result of what did the user searched */}
+        {searchedTodos.map(todo => (
           <TodoItem
             key={todo.text}
             text={todo.text}
