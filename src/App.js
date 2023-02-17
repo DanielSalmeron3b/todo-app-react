@@ -6,7 +6,7 @@ import { TodoList } from "./TodoList";
 import { CreateTodoButton } from "./CreateTodoButton";
 import { TodoItem } from "./TodoItem";
 
-/* Fake and "hardcoded" TODOs */
+// Fake and "hardcoded" TODOs
 const defaultTodos = [
   {
     text: 'Do the laundry',
@@ -35,16 +35,27 @@ function App() {
 
   let searchedTodos = [];
   if (!searchValue.length >= 1) {
-    /* If search bar is empty, show all the TODOs that are registered */
+    // If search bar is empty, show all the TODOs that are registered
     searchedTodos = todos;
   } else {
     searchedTodos = todos.filter(todo => {
       const todoText = todo.text.toLowerCase();
       const searchText = searchValue.toLowerCase();
-      /* Seeing if any of the TODOs in the app have the text prompted by the user
-      so the filter method will return it */
+      // Seeing if any of the TODOs in the app have the text prompted by the user
+      // so the filter method will return it
       return todoText.includes(searchText);
     });
+  };
+
+  const markTodoAsCompleted = (text) => {
+    // Searching the index of the todo that has the same text as the one we receive as a parameter
+    const todoIndex = todos.findIndex(todo => todo.text === text);
+    // Creating a new list of todos based on the original 'todos' list
+    const newTodos = [...todos];
+    // Marking the todo as completed
+    newTodos[todoIndex].completed = true;
+    // Updating the state
+    setTodos(newTodos);
   };
 
   return (
