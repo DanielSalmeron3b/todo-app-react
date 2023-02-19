@@ -2,9 +2,10 @@ import React from "react";
 import './TodoItem.css';
 
 function TodoItem(props) {
-    const onComplete = () => {
-        alert( `${props.text} is completed!`);
-    };
+    /* Not using this anymare */
+    // const onComplete = () => {
+    //     alert( `${props.text} is completed!`);
+    // };
 
     const onDelete = () => {
         alert( `${props.text} was delete!`);
@@ -14,7 +15,9 @@ function TodoItem(props) {
     <li className="todo-item-list">
         <span 
             className={`item-list--icon list-icon--check ${props.completed && 'list-icon--active'}`}
-            onClick={onComplete}
+            // Using the 'markTodoAsCompleted' function defined in App.js
+            // to mark the task as completed
+            onClick={props.onComplete}
         >
             √
         </span>

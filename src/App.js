@@ -75,6 +75,7 @@ function App() {
             key={todo.text}
             text={todo.text}
             completed={todo.completed}
+            onComplete={() => markTodoAsCompleted(todo.text)}
           />
         ))}
       </TodoList>
