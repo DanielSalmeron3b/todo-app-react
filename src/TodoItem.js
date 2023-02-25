@@ -3,13 +3,14 @@ import './TodoItem.css';
 
 function TodoItem(props) {
     /* Not using this anymare */
+
     // const onComplete = () => {
     //     alert( `${props.text} is completed!`);
     // };
 
-    const onDelete = () => {
-        alert( `${props.text} was delete!`);
-    };
+    // const onDelete = () => {
+    //     alert( `${props.text} was delete!`);
+    // };
 
     return (
     <li className="todo-item-list">
@@ -26,7 +27,8 @@ function TodoItem(props) {
         </p>
         <span 
             className="item-list--icon list-icon--delete"
-            onClick={onDelete}
+            // onClick={props.onDelete}
+            onClick={props.onDelete}
         >
             X
         </span>

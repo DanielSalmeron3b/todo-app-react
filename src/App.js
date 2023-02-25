@@ -58,6 +58,17 @@ function App() {
     setTodos(newTodos);
   };
 
+  const deleteATodo = (text) => {
+    // Searching the index of the todo that has the same text as the one we receive as a parameter
+    const todoIndex = todos.findIndex(todo => todo.text === text);
+    // Creating a new list of todos based on the original 'todos' list
+    const newTodos = [...todos];
+    // Deleting the todo from the array
+    newTodos.splice(todoIndex, 1);
+    // Updating the state
+    setTodos(newTodos);
+  };
+
   return (
     <>
       <TodoCounter
@@ -76,6 +87,7 @@ function App() {
             text={todo.text}
             completed={todo.completed}
             onComplete={() => markTodoAsCompleted(todo.text)}
+            onDelete={() => deleteATodo(todo.text)}
           />
         ))}
       </TodoList>
