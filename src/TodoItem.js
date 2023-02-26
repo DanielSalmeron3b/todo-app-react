@@ -27,7 +27,8 @@ function TodoItem(props) {
         </p>
         <span 
             className="item-list--icon list-icon--delete"
-            // onClick={props.onDelete}
+            // Using the 'deleteATodo' function defined in App.js
+            // to delete the task
             onClick={props.onDelete}
         >
             X
