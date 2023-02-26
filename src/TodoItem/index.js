@@ -2,15 +2,6 @@ import React from "react";
 import './TodoItem.css';
 
 function TodoItem(props) {
-    /* Not using this anymare */
-
-    // const onComplete = () => {
-    //     alert( `${props.text} is completed!`);
-    // };
-
-    // const onDelete = () => {
-    //     alert( `${props.text} was delete!`);
-    // };
 
     return (
     <li className="todo-item-list">
