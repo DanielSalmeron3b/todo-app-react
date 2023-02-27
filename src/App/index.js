@@ -26,7 +26,7 @@ function App() {
   const localStorageTodos = localStorage.getItem('TODOS_V1');
   let parsedTodos;
 
-  if(!localStorageTodos){
+  if (!localStorageTodos) {
     // If the user is new in the app, then there will be nothing on localStorage
     // so we save an item in localStorage as an empty array
     localStorage.setItem('TODOS_V1', JSON.stringify([]));
@@ -58,6 +58,12 @@ function App() {
     });
   };
 
+  const saveTodosInLocalStorage = (newTodos) => {
+    // Saving the changes in localStorage    
+    const stringUpdatedTodos = JSON.stringify(newTodos);
+    localStorage.setItem('TODOS_V1', stringUpdatedTodos);
+  };
+
   const markTodoAsCompleted = (text) => {
     // Searching the index of the todo that has the same text as the one we receive as a parameter
     const todoIndex = todos.findIndex(todo => todo.text === text);
@@ -65,11 +71,8 @@ function App() {
     const newTodos = [...todos];
     // Marking the todo as completed
     newTodos[todoIndex].completed = true;
-    // Saving the changes in localStorage
-    console.log('newTodos', newTodos);
-    const stringUpdatedTodos = JSON.stringify(newTodos);
-    console.log('stringUpdatedTodos', stringUpdatedTodos);
-    localStorage.setItem('TODOS_V1', stringUpdatedTodos);
+    // Saving the todo in localStorage
+    saveTodosInLocalStorage(newTodos);
     // Updating the state
     setTodos(newTodos);
   };
@@ -81,11 +84,8 @@ function App() {
     const newTodos = [...todos];
     // Deleting the todo from the array
     newTodos.splice(todoIndex, 1);
-    // Saving the changes in localStorage
-    console.log('newTodos', newTodos);
-    const stringUpdatedTodos = JSON.stringify(newTodos);
-    console.log('stringUpdatedTodos', stringUpdatedTodos);
-    localStorage.setItem('TODOS_V1', stringUpdatedTodos);
+    // Saving the todo in localStorage
+    saveTodosInLocalStorage(newTodos);
     // Updating the state
     setTodos(newTodos);
   };
