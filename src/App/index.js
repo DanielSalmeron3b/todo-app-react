@@ -2,27 +2,43 @@ import React from "react";
 import { AppUI } from "./indexUI";
 
 // Fake and "hardcoded" TODOs
-const defaultTodos = [
-  {
-    text: 'Do the laundry',
-    completed: true,
-  },
-  {
-    text: 'Do the React Course at Platzi',
-    completed: false,
-  },
-  {
-    text: 'Llorar con la llorona',
-    completed: false,
-  },
-  {
-    text: 'Pet the dog',
-    completed: false,
-  }
-]
+// const defaultTodos = [
+//   {
+//     text: 'Do the laundry',
+//     completed: true,
+//   },
+//   {
+//     text: 'Do the React Course at Platzi',
+//     completed: false,
+//   },
+//   {
+//     text: 'Llorar con la llorona',
+//     completed: false,
+//   },
+//   {
+//     text: 'Pet the dog',
+//     completed: false,
+//   }
+// ]
 
 function App() {
-  const [todos, setTodos] = React.useState(defaultTodos);
+  // Bringing all the TODOs saved in localStorage
+  const localStorageTodos = localStorage.getItem('TODOS_V1');
+  let parsedTodos;
+
+  if(!localStorageTodos){
+    // If the user is new in the app, then there will be nothing on localStorage
+    // so we save an item in localStorage as an empty array
+    localStorage.setItem('TODOS_V1', []);
+    // And the default state will be also an empty array
+    parsedTodos = [];
+  } else {
+    // If there are TODOs saved in localStorage then these are converted to JSON
+    parsedTodos = JSON.parse(localStorageTodos);
+  };
+
+  const [todos, setTodos] = React.useState(parsedTodos);
+  // The searchValue is nothing by default, until the user searches a TODO
   const [searchValue, setSearchValue] = React.useState('');
 
   const completedTodos = todos.filter(todos => !!todos.completed).length;
