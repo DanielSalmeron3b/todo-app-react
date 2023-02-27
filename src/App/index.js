@@ -29,7 +29,7 @@ function App() {
   if(!localStorageTodos){
     // If the user is new in the app, then there will be nothing on localStorage
     // so we save an item in localStorage as an empty array
-    localStorage.setItem('TODOS_V1', []);
+    localStorage.setItem('TODOS_V1', JSON.stringify([]));
     // And the default state will be also an empty array
     parsedTodos = [];
   } else {
@@ -65,6 +65,11 @@ function App() {
     const newTodos = [...todos];
     // Marking the todo as completed
     newTodos[todoIndex].completed = true;
+    // Saving the changes in localStorage
+    console.log('newTodos', newTodos);
+    const stringUpdatedTodos = JSON.stringify(newTodos);
+    console.log('stringUpdatedTodos', stringUpdatedTodos);
+    localStorage.setItem('TODOS_V1', stringUpdatedTodos);
     // Updating the state
     setTodos(newTodos);
   };
@@ -76,6 +81,11 @@ function App() {
     const newTodos = [...todos];
     // Deleting the todo from the array
     newTodos.splice(todoIndex, 1);
+    // Saving the changes in localStorage
+    console.log('newTodos', newTodos);
+    const stringUpdatedTodos = JSON.stringify(newTodos);
+    console.log('stringUpdatedTodos', stringUpdatedTodos);
+    localStorage.setItem('TODOS_V1', stringUpdatedTodos);
     // Updating the state
     setTodos(newTodos);
   };
