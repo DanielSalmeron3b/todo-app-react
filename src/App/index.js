@@ -21,28 +21,61 @@ import { AppUI } from "./indexUI";
 //   }
 // ]
 
-function App() {
-  // Bringing all the TODOs saved in localStorage
-  const localStorageTodos = localStorage.getItem('TODOS_V1');
-  let parsedTodos;
+/* Custom Hook to save data in localStorage */
+function useLocalStorage(itemName, initialValue) {
+  // Bringing the item (received as a parameter) saved in localStorage, it can be the list of TODOs
+  // or other item saved in localStorage
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
 
-  if (!localStorageTodos) {
+
+  if (!localStorageItem) {
     // If the user is new in the app, then there will be nothing on localStorage
     // so we save an item in localStorage as an empty array
-    localStorage.setItem('TODOS_V1', JSON.stringify([]));
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
     // And the default state will be also an empty array
-    parsedTodos = [];
+    parsedItem = initialValue;
   } else {
     // If there are TODOs saved in localStorage then these are converted to JSON
-    parsedTodos = JSON.parse(localStorageTodos);
+    parsedItem = JSON.parse(localStorageItem);
   };
 
-  const [todos, setTodos] = React.useState(parsedTodos);
-  // The searchValue is nothing by default, until the user searches a TODO
-  const [searchValue, setSearchValue] = React.useState('');
+  const [item, setItem] = React.useState(parsedItem);
 
+
+  const saveItemInLocalStorage = (newItem) => {
+    // Saving the changes in localStorage    
+    const stringUpdatedItem = JSON.stringify(newItem);
+    localStorage.setItem(itemName, stringUpdatedItem);
+    // Setting a new state
+    setItem(newItem);
+  };
+
+  // Returning the state (item), and the function that modifies the state (saveItemInLocalStorage)
+  return [
+    item,
+    saveItemInLocalStorage,
+  ];
+} 
+
+
+function App() {
+  // Using the custom hook, saving the TODOs in an item called 'TODOS_V1' in the localStorage
+  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
+
+  // Playing with the custom hook 🥴
+  const [patito, setPatito] = useLocalStorage('PATITO_V1', 'Patito Juán');
+
+  // The searchValue is nothing by default, until the user searches for a TODO by typing
+  // something in the search bar
+  const [searchValue, setSearchValue] = React.useState('');
+  
+  // Getting the quantity of TODOs that are completed
   const completedTodos = todos.filter(todos => !!todos.completed).length;
+  
+  // Getting the quantity of all TODOs
   const totalTodos = todos.length;
+
 
   let searchedTodos = [];
   if (!searchValue.length >= 1) {
@@ -58,11 +91,6 @@ function App() {
     });
   };
 
-  const saveTodosInLocalStorage = (newTodos) => {
-    // Saving the changes in localStorage    
-    const stringUpdatedTodos = JSON.stringify(newTodos);
-    localStorage.setItem('TODOS_V1', stringUpdatedTodos);
-  };
 
   const markTodoAsCompleted = (text) => {
     // Searching the index of the todo that has the same text as the one we receive as a parameter
@@ -72,10 +100,9 @@ function App() {
     // Marking the todo as completed
     newTodos[todoIndex].completed = true;
     // Saving the todo in localStorage
-    saveTodosInLocalStorage(newTodos);
-    // Updating the state
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
+
 
   const deleteATodo = (text) => {
     // Searching the index of the todo that has the same text as the one we receive as a parameter
@@ -85,12 +112,12 @@ function App() {
     // Deleting the todo from the array
     newTodos.splice(todoIndex, 1);
     // Saving the todo in localStorage
-    saveTodosInLocalStorage(newTodos);
-    // Updating the state
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
 
-  return (
+
+  return [
+    <p>{patito}</p>,
     // Sending the props to the 'AppUI' component
     <AppUI
       totalTodos={totalTodos}
@@ -101,7 +128,7 @@ function App() {
       markTodoAsCompleted={markTodoAsCompleted}
       deleteATodo={deleteATodo}
     />
-  );
+  ];
 }
 
 export default App;
