@@ -32,7 +32,7 @@ function AppUI({
             <TodoList>
                 {error && <p>There was an error :(</p>}
                 {loading && <p>Loading...</p>}
-                {(!loading && !searchedTodos.length) && <p>Make your first TODO.</p>}                
+                {(!loading && !searchedTodos.length && !error) && <p>Make your first TODO.</p>}                
                 {/* TODOs that are shown as a result of what did the user searched */}
                 {searchedTodos.map(todo => (
                     <TodoItem

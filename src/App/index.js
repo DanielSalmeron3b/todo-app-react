@@ -1,25 +1,6 @@
 import React from "react";
 import { AppUI } from "./indexUI";
 
-// Fake and "hardcoded" TODOs
-// const defaultTodos = [
-//   {
-//     text: 'Do the laundry',
-//     completed: true,
-//   },
-//   {
-//     text: 'Do the React Course at Platzi',
-//     completed: false,
-//   },
-//   {
-//     text: 'Llorar con la llorona',
-//     completed: false,
-//   },
-//   {
-//     text: 'Pet the dog',
-//     completed: false,
-//   }
-// ]
 
 /* Custom Hook to save data in localStorage */
 function useLocalStorage(itemName, initialValue) {
@@ -35,6 +16,8 @@ function useLocalStorage(itemName, initialValue) {
     // have to wait for the request to complete
     setTimeout(() => {
       try {
+        // If u want to see how the error state works, uncomment the line below
+        // throw new Error()
         // Bringing the item (received as a parameter) saved in localStorage, it can be the list of TODOs
         // or other item saved in localStorage
         const localStorageItem = localStorage.getItem(itemName);
