@@ -12,10 +12,12 @@ function TodoProvider(props) {
         error,
     } = useLocalStorage('TODOS_V1', []);
 
+    
     // The searchValue is nothing by default, until the user searches for a TODO by typing
     // something in the search bar
     const [searchValue, setSearchValue] = React.useState('');
-
+    
+    const [openModal, setOpenModal] = React.useState(false);
     // Getting the quantity of TODOs that are completed
     const completedTodos = todos.filter(todos => !!todos.completed).length;
 
@@ -72,6 +74,8 @@ function TodoProvider(props) {
             searchedTodos,
             markTodoAsCompleted,
             deleteATodo,
+            openModal,
+            setOpenModal,
         }}>
             {props.children}
         </TodoContext.Provider>
