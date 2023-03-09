@@ -4,6 +4,7 @@ import { TodoContext } from "../TodoContext";
 import { TodoSearch } from "../TodoSearch";
 import { TodoList } from "../TodoList";
 import { CreateTodoButton } from "../CreateTodoButton";
+import { Modal } from "../Modal";
 import { TodoItem } from "../TodoItem";
 
 function AppUI() {
@@ -35,6 +36,9 @@ function AppUI() {
                     />
                 ))}
             </TodoList>
+            <Modal>
+                <p>Teletransportation!!!!</p>
+            </Modal>
             <CreateTodoButton />
         </>
     );
