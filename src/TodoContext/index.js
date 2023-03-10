@@ -11,7 +11,6 @@ function TodoProvider(props) {
         loading,
         error,
     } = useLocalStorage('TODOS_V1', []);
-
     
     // The searchValue is nothing by default, until the user searches for a TODO by typing
     // something in the search bar
@@ -39,6 +38,14 @@ function TodoProvider(props) {
         });
     };
 
+    const createTodo = (textWritten) => {
+        const newTodos = [...todos];
+        newTodos.push({
+            completed: false,
+            text: textWritten,
+        });
+        saveTodos(newTodos);
+    };
 
     const markTodoAsCompleted = (text) => {
         // Searching the index of the todo that has the same text as the one we receive as a parameter
@@ -72,6 +79,7 @@ function TodoProvider(props) {
             searchValue,
             setSearchValue,
             searchedTodos,
+            createTodo,
             markTodoAsCompleted,
             deleteATodo,
             openModal,

@@ -4,16 +4,12 @@ import './CreateTodoButton.css';
 
 function CreateTodoButton(){
     const {
-        openModal,
         setOpenModal,
     } = React.useContext(TodoContext);
 
     const onClickButton = () => {
-        if (openModal === true) {
-            setOpenModal(false);
-        }else{
-            setOpenModal(true);
-        }
+        // If the state is open(true) we close it (false) and vice versa
+        setOpenModal(prevState => !prevState);
     };
 
     return (
